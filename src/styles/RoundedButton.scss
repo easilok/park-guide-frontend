@@ -1,0 +1,23 @@
+@import './variables';
+
+$buttonSize: 46px;
+
+button.rounded-button {
+  height: $buttonSize;
+  width: $buttonSize;
+  border-radius: 50%;
+  // padding: 1rem;
+  background-color: $default-green;
+  color: white;
+  cursor: pointer;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  &:hover,
+  &:active {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  > * {
+    margin: 0 auto;
+  }
+}

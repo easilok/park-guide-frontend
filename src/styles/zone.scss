@@ -1,0 +1,115 @@
+@import './variables';
+
+.zone-content {
+  margin-bottom: 70px;
+}
+
+.zone-header {
+  position: relative;
+  span {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color: white;
+    font-style: italic;
+    width: 100%;
+    text-align: right;
+    padding: 0 10px;
+    background-color: $image-caption-bg;
+  }
+}
+
+.zone-info-tab {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0;
+  li {
+    @apply border-gray-500 text-gray-500;
+    cursor: pointer;
+    text-align: center;
+    flex-grow: 1;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+  li:hover {
+    border-bottom-color: $default-green;
+    color: $default-green;
+  }
+}
+
+.zone-info-content {
+  @apply p-4 border border-solid border-gray-300 rounded-xl shadow-xl m-2;
+  h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.zone-info-eyes {
+  display: flex;
+  justify-content: space-between;
+  svg {
+    width: 32px;
+    display: inline-block;
+  }
+  span {
+    margin-left: 1rem;
+  }
+}
+
+.zone-see-more {
+  display: flex;
+  flex-direction: column;
+  .zone-see-more-item {
+    padding: 1rem 0;
+    $zone-see-more-item-size: 400px;
+    height: $zone-see-more-item-size;
+    width: $zone-see-more-item-size;
+    max-width: 100%;
+    margin: auto;
+    position: relative;
+    cursor: pointer;
+    > div {
+      overflow: hidden;
+      border-radius: 6px;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      > span {
+        font-style: italic;
+        color: white;
+        position: absolute;
+        // bottom: 1.5rem;
+        // left: 50%;
+        // transform: translate(-50%, 0);
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        background-color: $image-caption-bg;
+        // height: 30px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        padding: 5px;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.zone__navigation {
+  position: fixed;
+  bottom: 10px;
+  padding: 0 1rem;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+}

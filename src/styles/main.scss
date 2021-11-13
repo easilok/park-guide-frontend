@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './variables';
+
+body {
+  @apply tracking-wide;
+}
+
+h1 {
+  @apply text-4xl font-bold;
+}
+
+h2 {
+  @apply text-2xl font-bold;
+}
+
+h3 {
+  @apply text-xl font-bold;
+}
+
+p {
+  @apply text-justify leading-relaxed;
+  br {
+    @apply mb-2;
+  }
+}
+
+button.btn-green {
+  @apply text-white py-2 px-6 rounded-xl text-lg font-bold;
+  background-color: $default-green;
+}
+
+.btn-transp-default {
+  cursor: pointer;
+  &:hover {
+    color: $default-green;
+  }
+}
+
+.home-header {
+  @apply w-full mx-auto flex justify-center flex-wrap;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-image: url('../assets/header-background.jpg');
+
+  .welcome-message {
+    @apply text-white font-bold my-auto w-full text-center;
+    .title {
+      @apply text-5xl;
+    }
+    .subtitle {
+      @apply text-3xl;
+    }
+  }
+}
+
+nav.action-bar {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  ul {
+    // display: flex;
+    // justify-content: end;
+    $action-bar-radius: 15px;
+    border-top-left-radius: $action-bar-radius;
+    border-bottom-left-radius: $action-bar-radius;
+    background-color: rgba(255, 255, 255, 0.7);
+    li {
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+    }
+  }
+}

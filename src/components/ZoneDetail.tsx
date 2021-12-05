@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import '../styles/zone.scss';
@@ -15,6 +15,14 @@ interface ZoneDetailProps {
 
 const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
   const { t } = useTranslation();
+  const audioRef = useRef<HTMLAudioElement>() as React.MutableRefObject<HTMLAudioElement>;
+
+  useEffect(() => {
+    if (audioRef.current != null) {
+      audioRef.current.pause();
+      audioRef.current.load();
+    }
+  }, [zone, audioRef]);
 
   return (
     <section className="zone-info-content">
@@ -36,7 +44,7 @@ const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
       {zone.audio.length > 0 && (
         <div className="zone-info__audio">
           <h5>{t('Audio_guide')}</h5>
-          <audio controls>
+          <audio controls ref={audioRef}>
             <source src={`${apiUrl}${zone.audio}`} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>

@@ -1,51 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import '../styles/zone.scss';
 
-enum TAB_MENU {
-  DESCRIPTION,
-  FAUNA,
-  FLORA,
-}
+const apiUrl = process.env.REACT_APP_API_URL || '';
 
 interface ZoneDetailProps {
   zone: {
     title: string;
     description: string;
+    audio: string;
   };
 }
 
 const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
-  const [tabMenu, setTabMenu] = useState(TAB_MENU.DESCRIPTION);
   const { t } = useTranslation();
 
   return (
     <section className="zone-info-content">
       {/* Texto a carregar da bd */}
       <h2>{zone.title}</h2>
-      <div>
-        <ul className="zone-info-tab">
-          <li
-            className={tabMenu === TAB_MENU.DESCRIPTION ? 'active' : ''}
-            onClick={() => setTabMenu(TAB_MENU.DESCRIPTION)}
-          >
-            {t('Description')}
-          </li>
-          <li
-            className={tabMenu === TAB_MENU.FAUNA ? 'active' : ''}
-            onClick={() => setTabMenu(TAB_MENU.FAUNA)}
-          >
-            {t('Fauna')}
-          </li>
-          <li
-            className={tabMenu === TAB_MENU.FLORA ? 'active' : ''}
-            onClick={() => setTabMenu(TAB_MENU.FLORA)}
-          >
-            {t('Flora')}
-          </li>
-        </ul>
-      </div>
       <div className="">
         {/* Texto a carregar da bd */}
         {/*
@@ -59,6 +33,15 @@ const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
         </p>
         */}
       </div>
+      {zone.audio.length > 0 && (
+        <div className="zone-info__audio">
+          <h5>{t('Audio_guide')}</h5>
+          <audio controls>
+            <source src={`${apiUrl}${zone.audio}`} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      )}
     </section>
   );
 };

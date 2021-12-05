@@ -6,7 +6,11 @@
   "Map": "Map",
   "Language": "Language",
   "Description": "Description",
+  "All": "All",
   "Fauna": "Fauna",
   "Flora": "Flora",
-  "Here you can see": "Here you can see"
+  "Here you can see": "Here you can see",
+  "Park_visit_guide": "Park visit guide",
+  "Audio_guide": "Audio guide",
+  "Visible_life": "Visible life"
 }

@@ -5,8 +5,12 @@
   "Visit": "Visitar",
   "Map": "Mapa",
   "Language": "Idioma",
+  "All": "Todos",
   "Description": "Descrição",
   "Fauna": "Fauna",
   "Flora": "Flora",
-  "Here_you_can_see": "Aqui pode ver"
+  "Here_you_can_see": "Aqui pode ver",
+  "Visible_life": "Vida visível",
+  "Audio_guide": "Guia audio",
+  "Park_visit_guide": "Guia de visita ao parque"
 }

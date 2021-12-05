@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Play } from 'react-feather';
 
+import { IPark } from '../types';
+
 import '../styles/start-modal.scss';
 
 interface StartModalProps {
   startHref: string;
+  park: IPark;
 }
 
-const StartModal: React.FC<StartModalProps> = (props) => {
+const StartModal: React.FC<StartModalProps> = ({ startHref, park }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -34,30 +37,16 @@ const StartModal: React.FC<StartModalProps> = (props) => {
         >
           <div className="welcome-modal__content">
             <div className="header">
-              <h3>Guia de visita ao Parque</h3>
+              <h3>{t('Park_visit_guide')}</h3>
             </div>
             <hr />
             <div className="main">
-              <p>
-                Esta aplicação irá acompanhá-lo na sua visita ao parque,
-                fornecendo dados adicionais sobre a zona onde se encontra no
-                momento, bem como qualquer elemento de fauna ou flora que se
-                possa deparar.
-                <br />
-                Ao longo do percurso irá encontrar placas com códigos para ler
-                com a sua câmara ou inserindo o número associado, que lhe
-                mostrará o conteúdo relacionado com a zona em que se encontra.
-                <br />
-                No canto superior direito terá um atalho que lhe mostrará a sua
-                localização no mapa, com base na última zona visitada, ou pelas
-                coordenadas GPS caso existam.
-                <br />
-                Aproveite a visita e viva o ambiente proporcionado pelo Parque
-                Biológico de Gaia
-              </p>
+              {park.welcome
+                .split('\n')
+                .map((s) => s.trim().length > 0 && <p key={s}>{s}</p>)}
             </div>
             <div className="footer">
-              <a className="" href={props.startHref}>
+              <a className="" href={startHref}>
                 <Play />
               </a>
             </div>

@@ -6,6 +6,8 @@ import RoundedButton from './RoundedButton';
 import '../styles/zone.scss';
 
 interface ZoneNavProps {
+  hasPrevious: boolean;
+  hasNext: boolean;
   onPreviousZone: () => void;
   onNextZone: () => void;
   onJumpZone: () => void;
@@ -15,18 +17,28 @@ const ZoneNavigation: React.FC<ZoneNavProps> = ({
   onPreviousZone,
   onNextZone,
   onJumpZone,
+  hasPrevious,
+  hasNext,
 }) => {
   return (
     <div className="zone__navigation">
-      <RoundedButton onClick={onPreviousZone}>
-        <ChevronLeft />
-      </RoundedButton>
+      {hasPrevious ? (
+        <RoundedButton onClick={onPreviousZone}>
+          <ChevronLeft />
+        </RoundedButton>
+      ) : (
+        <div></div>
+      )}
       <RoundedButton onClick={onJumpZone}>
         <Camera />
       </RoundedButton>
-      <RoundedButton onClick={onNextZone}>
-        <ChevronRight />
-      </RoundedButton>
+      {hasNext ? (
+        <RoundedButton onClick={onNextZone}>
+          <ChevronRight />
+        </RoundedButton>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

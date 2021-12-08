@@ -22,23 +22,15 @@ const ZoneNavigation: React.FC<ZoneNavProps> = ({
 }) => {
   return (
     <div className="zone__navigation">
-      {hasPrevious ? (
-        <RoundedButton onClick={onPreviousZone}>
-          <ChevronLeft />
-        </RoundedButton>
-      ) : (
-        <div></div>
-      )}
+      <RoundedButton onClick={onPreviousZone} disable={!hasPrevious}>
+        <ChevronLeft />
+      </RoundedButton>
       <RoundedButton onClick={onJumpZone}>
         <Camera />
       </RoundedButton>
-      {hasNext ? (
-        <RoundedButton onClick={onNextZone}>
-          <ChevronRight />
-        </RoundedButton>
-      ) : (
-        <div></div>
-      )}
+      <RoundedButton onClick={onNextZone} disable={!hasNext}>
+        <ChevronRight />
+      </RoundedButton>
     </div>
   );
 };

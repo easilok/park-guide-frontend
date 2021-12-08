@@ -15,11 +15,14 @@ export const LifeItem: React.FC<LifeItemProps> = ({
   life,
   backgroundStyle,
 }) => {
-  const backgroundImage = life.life.imagelife_set.length > 0 ? `url(${mediaPath}${life.life.imagelife_set[0].path})` : '';
+  const backgroundImage =
+    life.life.imagelife_set.length > 0
+      ? `url(${mediaPath}${life.life.imagelife_set[0].path})`
+      : '';
   const bgStyle = backgroundStyle
     ? {
-      backgroundImage: backgroundImage,
-    }
+        backgroundImage: backgroundImage,
+      }
     : {};
 
   return (

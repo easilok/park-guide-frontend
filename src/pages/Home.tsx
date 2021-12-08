@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { AppContext } from '../App';
 import StartModal from '../components/StartModal';
 
 import { IPark } from '../types';
 
 import '../styles/main.scss';
 
-const apiUrl = process.env.REACT_APP_API_URL || '';
+// const apiUrl = process.env.REACT_APP_API_URL || '';
 const inititialParkState: IPark = {
   name: '',
   welcome: '',
@@ -20,9 +21,10 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const [fetchingData, setFetchingData] = useState(true);
   const [park, setPark] = useState<IPark>(inititialParkState);
+  const { apiUrl, language } = useContext(AppContext);
 
   useEffect(() => {
-    fetch(`${apiUrl}/api/park?lang=pt`)
+    fetch(`${apiUrl}/api/park?lang=${language}`)
       .then((res) => res.json())
       .then((parkData: IPark[]) => {
         // eslint-disable-next-line no-console

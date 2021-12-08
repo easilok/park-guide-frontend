@@ -1,0 +1,73 @@
+@import './variables';
+
+.jump-camera__info,
+.jump-camera__error {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  display: block;
+}
+
+.jump-camera__error {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  min-height: 1rem;
+  color: red;
+}
+
+.jump-camera__manual {
+  padding: 0 1rem;
+  width: 100%;
+  align-items: center;
+  form {
+    display: flex;
+  }
+  input {
+    padding: 0 0.5rem;
+    border-bottom: 1px solid $default-green;
+    flex-grow: 1;
+  }
+  button:hover {
+    color: $default-green;
+    animation-name: tilt;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-30deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(+30deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.jump-camera-preview {
+  // height: 300px;
+  height: auto;
+  // width: 300px;
+  width: 70%;
+  background-color: black;
+  margin: auto;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.modal-footer {
+  text-align: right;
+  .jump-camera-close {
+    cursor: pointer;
+  }
+}

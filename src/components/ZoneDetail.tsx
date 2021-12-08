@@ -15,7 +15,8 @@ interface ZoneDetailProps {
 
 const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
   const { t } = useTranslation();
-  const audioRef = useRef<HTMLAudioElement>() as React.MutableRefObject<HTMLAudioElement>;
+  const audioRef =
+    useRef<HTMLAudioElement>() as React.MutableRefObject<HTMLAudioElement>;
 
   useEffect(() => {
     if (audioRef.current != null) {

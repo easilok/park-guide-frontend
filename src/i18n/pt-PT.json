@@ -12,5 +12,10 @@
   "Here_you_can_see": "Aqui pode ver",
   "Visible_life": "Vida visível",
   "Audio_guide": "Guia audio",
+  "Jump_app_title": "Digitalizar código de zona",
+  "Point_camera_to_zone_QRCode": "Aponte a câmera para o código QR",
+  "Or_manual_enter_zone_code": "Ou introduza o código manualmente",
+  "Invalid_zone_code": "Código de zona inválido",
+  "Enter_zone_code": "Introduza código da zona",
   "Park_visit_guide": "Guia de visita ao parque"
 }

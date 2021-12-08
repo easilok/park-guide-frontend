@@ -12,5 +12,10 @@
   "Here you can see": "Here you can see",
   "Park_visit_guide": "Park visit guide",
   "Audio_guide": "Audio guide",
+  "Jump_app_title": "Scan zone code",
+  "Point_camera_to_zone_QRCode": "Point camera to the QR code",
+  "Or_manual_enter_zone_code": "Or enter code manually",
+  "Invalid_zone_code": "Invalid zone code",
+  "Enter_zone_code": "Enter zone code",
   "Visible_life": "Visible life"
 }

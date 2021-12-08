@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Play } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 import { IPark } from '../types';
 
@@ -46,9 +47,9 @@ const StartModal: React.FC<StartModalProps> = ({ startHref, park }) => {
                 .map((s) => s.trim().length > 0 && <p key={s}>{s}</p>)}
             </div>
             <div className="footer">
-              <a className="" href={startHref}>
+              <Link className="" to={startHref}>
                 <Play />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

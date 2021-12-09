@@ -25,6 +25,14 @@ const App: React.FC = () => {
   const { i18n } = useTranslation();
 
   useEffect(() => {
+    const i18Index = Object.keys(localStorage).findIndex(
+      (k) => k === 'i18nextLng'
+    );
+    if (i18Index < 0) {
+      localStorage.setItem('i18nextLng', 'pt');
+
+      return;
+    }
     const savedLanguage = localStorage.getItem('i18nextLng');
     if (savedLanguage) {
       setLanguage(savedLanguage);

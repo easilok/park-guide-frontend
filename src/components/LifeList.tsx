@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { Search } from 'react-feather';
 
@@ -23,11 +23,12 @@ enum TAB_MENU {
 
 interface LifeListProps {
   lifeList: ILifeZone[];
+  onLifeSelect: (life: ILifeZone) => void;
 }
 
-const LifeList: React.FC<LifeListProps> = ({ lifeList }) => {
+const LifeList: React.FC<LifeListProps> = ({ lifeList, onLifeSelect }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [flora, setFlora] = useState(true);
   const [fauna, setFauna] = useState(true);
@@ -51,9 +52,9 @@ const LifeList: React.FC<LifeListProps> = ({ lifeList }) => {
     setSearch(event.target.value);
   };
 
-  const lifeSelectHandler = (life: ILifeZone) => {
-    navigate(`/life/${life.life.id}`);
-  };
+  // const lifeSelectHandler = (life: ILifeZone) => {
+  //   navigate(`/life/${life.life.id}`);
+  // };
 
   useEffect(() => {
     setLoadedItems(initialLoadedItems);
@@ -141,7 +142,7 @@ const LifeList: React.FC<LifeListProps> = ({ lifeList }) => {
               key={life.life.id}
               backgroundStyle
               life={life}
-              onSelect={lifeSelectHandler}
+              onSelect={onLifeSelect}
             />
           ))}
       </div>

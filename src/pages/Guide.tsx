@@ -2,17 +2,13 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Navbar from '../components/Navbar';
-import ZoneDetail from '../components/ZoneDetail';
-import LifeList from '../components/LifeList';
 import ZoneNavigation from '../components/ZoneNavigation';
-import { HeaderImage } from '../components/HeaderImage';
 import { AppJump } from '../components/AppJump';
+import { ZonePage } from './ZonePage';
+import { LifePage } from './LifePage';
 import { AppContext } from '../App';
 
-import { IZone, IImageZone, ILifeZone } from '../types';
-
-import '../styles/zone.scss';
+import { IZone, ILifeZone, ILife } from '../types';
 
 // const apiUrl = process.env.REACT_APP_API_URL || '';
 // const seeMoreImages = [
@@ -59,8 +55,9 @@ const Guide: React.FC = () => {
   const [zones, setZones] = useState<IZone[]>([]);
   const [zoneLife, setZoneLife] = useState<ILifeZone[]>([]);
   const [selectedZone, setSelectedZone] = useState(0);
-  const [showJump, setShowJump] = useState(false);
   const [scanError, setScanError] = useState('');
+  const [showJump, setShowJump] = useState(false);
+  const [viewLife, setViewLife] = useState<ILife | null>(null);
 
   useEffect(() => {
     setFetchingData(true);
@@ -147,33 +144,28 @@ const Guide: React.FC = () => {
     [zones, setSelectedZone, setShowJump]
   );
 
+  const lifeSelectHandler = (life: ILifeZone) => {
+    setViewLife(life.life);
+  };
+
   if (fetchingData) {
     return null;
   }
 
-  const zoneCoverImage: IImageZone | undefined = zones[
-    selectedZone
-  ].zone.imagezone_set.find((i) => i.cover === true);
+  if (viewLife) {
+    return (
+      <LifePage selectedLife={viewLife} onClose={() => setViewLife(null)} />
+    );
+  }
 
   return (
     <>
-      <Navbar />
-      <main className="zone-content">
-        {zoneCoverImage &&
-          zoneCoverImage.imagezonetranslations_set.length > 0 && (
-            <HeaderImage
-              imageSrc={`${apiUrl}${zoneCoverImage.path}`}
-              imageText={zoneCoverImage.imagezonetranslations_set[0].name}
-            />
-          )}
-        <ZoneDetail
-          zone={{
-            title: zones[selectedZone].name,
-            description: zones[selectedZone].description,
-            audio: zones[selectedZone].audio,
-          }}
-        />
-        <LifeList lifeList={zoneLife} />
+      <ZonePage
+        zone={zones[selectedZone]}
+        zoneLife={zoneLife}
+        onLifeSelect={lifeSelectHandler}
+      />
+      <section>
         {!showJump && (
           <ZoneNavigation
             hasPrevious={!!zones[selectedZone].zone.previous}
@@ -190,7 +182,7 @@ const Guide: React.FC = () => {
             scanError={scanError}
           />
         )}
-      </main>
+      </section>
     </>
   );
 };

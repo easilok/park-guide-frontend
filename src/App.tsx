@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Home from './pages/Home';
@@ -24,6 +24,7 @@ export const AppContext = createContext<IContext>({
 const App: React.FC = () => {
   const [language, setLanguage] = useState('pt');
   const { i18n } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const i18Index = Object.keys(localStorage).findIndex(
@@ -64,7 +65,10 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/start" element={<Guide />} />
           <Route path="/zone/:zoneId" element={<Guide />} />
-          <Route path="/life/:lifeId" element={<LifePage />} />
+          <Route
+            path="/life/:lifeId"
+            element={<LifePage onClose={() => navigate(-1)} />}
+          />
         </Routes>
       </AppContext.Provider>
     </div>

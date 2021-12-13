@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import ZoneDetail from '../components/ZoneDetail';
 import LifeList from '../components/LifeList';
 import ZoneNavigation from '../components/ZoneNavigation';
+import { HeaderImage } from '../components/HeaderImage';
 import { AppJump } from '../components/AppJump';
 import { AppContext } from '../App';
 
-import { IZone, IImageZone, ILife } from '../types';
+import { IZone, IImageZone, ILifeZone } from '../types';
 
 import '../styles/zone.scss';
 
@@ -49,27 +51,38 @@ import '../styles/zone.scss';
 
 const Guide: React.FC = () => {
   const { t } = useTranslation();
+  const { apiUrl, language } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { zoneId } = useParams();
+  // State data
   const [fetchingData, setFetchingData] = useState(true);
   const [zones, setZones] = useState<IZone[]>([]);
-  const [zoneLife, setZoneLife] = useState<ILife[]>([]);
+  const [zoneLife, setZoneLife] = useState<ILifeZone[]>([]);
   const [selectedZone, setSelectedZone] = useState(0);
   const [showJump, setShowJump] = useState(false);
   const [scanError, setScanError] = useState('');
-  const { apiUrl, language } = useContext(AppContext);
 
   useEffect(() => {
     setFetchingData(true);
-    fetch(`${apiUrl}/api/zone?lang=${language}`)
+    fetch(`${apiUrl}/api/zone/?lang=${language}`)
       .then((res) => res.json())
       .then((zoneData: IZone[]) => {
         if (zoneData.length > 0) {
+          if (zoneId) {
+            const selectedZoneIndex = zoneData.findIndex(
+              (z) => z.zone.id.toString() === zoneId
+            );
+            if (selectedZoneIndex >= 0) {
+              setSelectedZone(selectedZoneIndex);
+            }
+          }
           setZones(zoneData);
           setFetchingData(false);
         }
       })
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
-  }, [setZones, setFetchingData, language]);
+  }, [setZones, setFetchingData, language, zoneId]);
 
   useEffect(() => {
     if (zones.length <= 0) {
@@ -79,7 +92,7 @@ const Guide: React.FC = () => {
       `${apiUrl}/api/zone/${zones[selectedZone].zone.id}/life?lang=${language}`
     )
       .then((res) => res.json())
-      .then((lifeData: ILife[]) => {
+      .then((lifeData: ILifeZone[]) => {
         if (lifeData.length > 0) {
           setZoneLife(lifeData);
         }
@@ -97,6 +110,7 @@ const Guide: React.FC = () => {
     );
     if (prevZoneIndex >= 0) {
       setSelectedZone(prevZoneIndex);
+      navigate(`/zone/${zones[prevZoneIndex].zone.id}`);
     }
   };
 
@@ -109,6 +123,7 @@ const Guide: React.FC = () => {
     );
     if (nextZoneIndex >= 0) {
       setSelectedZone(nextZoneIndex);
+      navigate(`/zone/${zones[nextZoneIndex].zone.id}`);
     }
   };
 
@@ -123,6 +138,7 @@ const Guide: React.FC = () => {
 
       if (qrZoneIndex >= 0) {
         setSelectedZone(qrZoneIndex);
+        navigate(`/zone/${zones[qrZoneIndex].zone.id}`);
         setShowJump(false);
       } else {
         setScanError(t('Invalid_zone_code'));
@@ -143,17 +159,13 @@ const Guide: React.FC = () => {
     <>
       <Navbar />
       <main className="zone-content">
-        <div className="zone-header">
-          {zoneCoverImage && (
-            <>
-              <img src={`${apiUrl}${zoneCoverImage.path}`} />
-              {/* Texto a carregar da bd */}
-              {zoneCoverImage.imagezonetranslations_set.length > 0 && (
-                <span>{zoneCoverImage.imagezonetranslations_set[0].name}</span>
-              )}
-            </>
+        {zoneCoverImage &&
+          zoneCoverImage.imagezonetranslations_set.length > 0 && (
+            <HeaderImage
+              imageSrc={`${apiUrl}${zoneCoverImage.path}`}
+              imageText={zoneCoverImage.imagezonetranslations_set[0].name}
+            />
           )}
-        </div>
         <ZoneDetail
           zone={{
             title: zones[selectedZone].name,
@@ -161,7 +173,7 @@ const Guide: React.FC = () => {
             audio: zones[selectedZone].audio,
           }}
         />
-        <LifeList mediaPath={apiUrl} lifeList={zoneLife} />
+        <LifeList lifeList={zoneLife} />
         {!showJump && (
           <ZoneNavigation
             hasPrevious={!!zones[selectedZone].zone.previous}

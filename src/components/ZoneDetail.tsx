@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Card } from './Card';
+
 import '../styles/zone.scss';
 
 const apiUrl = process.env.REACT_APP_API_URL || '';
@@ -26,7 +28,7 @@ const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
   }, [zone, audioRef]);
 
   return (
-    <section className="zone-info-content">
+    <Card className="zone-info-content">
       {/* Texto a carregar da bd */}
       <h2>{zone.title}</h2>
       <div className="">
@@ -51,7 +53,7 @@ const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone }) => {
           </audio>
         </div>
       )}
-    </section>
+    </Card>
   );
 };
 

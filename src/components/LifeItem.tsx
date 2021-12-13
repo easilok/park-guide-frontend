@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { ILife } from '../types';
+import { ILifeZone } from '../types';
+import { AppContext } from '../App';
 
 import '../styles/zone.scss';
 
 interface LifeItemProps {
-  mediaPath: string;
-  life: ILife;
+  life: ILifeZone;
   backgroundStyle?: boolean;
+  onSelect: (life: ILifeZone) => void;
 }
 
 export const LifeItem: React.FC<LifeItemProps> = ({
-  mediaPath,
   life,
   backgroundStyle,
+  onSelect,
 }) => {
+  const { apiUrl } = useContext(AppContext);
+
   const backgroundImage =
     life.life.imagelife_set.length > 0
-      ? `url(${mediaPath}${life.life.imagelife_set[0].path})`
+      ? `url(${apiUrl}${life.life.imagelife_set[0].path})`
       : '';
   const bgStyle = backgroundStyle
     ? {
@@ -27,10 +30,10 @@ export const LifeItem: React.FC<LifeItemProps> = ({
 
   return (
     <div className="zone-life-list__item">
-      <div style={bgStyle}>
+      <div style={bgStyle} onClick={() => onSelect(life)}>
         {!backgroundStyle && (
           <img
-            src={`${mediaPath}${life.life.imagelife_set[0].path}`}
+            src={`${apiUrl}${life.life.imagelife_set[0].path}`}
             alt={life.life.scientific}
           />
         )}

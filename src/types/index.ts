@@ -47,21 +47,23 @@ export enum LifeGroup {
 }
 
 export interface ILife {
-  life: {
-    id: number;
-    scientific: string;
-    code: string;
-    location: number | null;
-    group: LifeGroup;
-    lifetranslations_set: {
-      name: string;
-      description: string;
-      funFacts: string;
-      habitat: string;
-      audio: string;
-    }[];
-    imagelife_set: IImageLife[];
-  };
+  id: number;
+  scientific: string;
+  code: string;
+  location: number | null;
+  group: LifeGroup;
+  lifetranslations_set: {
+    name: string;
+    description: string;
+    funFacts: string;
+    habitat: string;
+    audio: string;
+  }[];
+  imagelife_set: IImageLife[];
+}
+
+export interface ILifeZone {
+  life: ILife;
   probability: number;
   poof: number;
 }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { Search } from 'react-feather';
 
+import { Card } from './Card';
 import EyeIcon from '../components/EyeIcon';
 import { LifeItem } from './LifeItem';
 
-import { ILife, LifeGroup } from '../types';
+import { ILifeZone, LifeGroup } from '../types';
 
 import '../styles/zone.scss';
 
@@ -20,12 +22,13 @@ enum TAB_MENU {
 }
 
 interface LifeListProps {
-  mediaPath: string;
-  lifeList: ILife[];
+  lifeList: ILifeZone[];
 }
 
-const LifeList: React.FC<LifeListProps> = ({ mediaPath, lifeList }) => {
+const LifeList: React.FC<LifeListProps> = ({ lifeList }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const [flora, setFlora] = useState(true);
   const [fauna, setFauna] = useState(true);
   const [loadedItems, setLoadedItems] = useState(initialLoadedItems);
@@ -46,6 +49,10 @@ const LifeList: React.FC<LifeListProps> = ({ mediaPath, lifeList }) => {
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const lifeSelectHandler = (life: ILifeZone) => {
+    navigate(`/life/${life.life.id}`);
   };
 
   useEffect(() => {
@@ -83,7 +90,7 @@ const LifeList: React.FC<LifeListProps> = ({ mediaPath, lifeList }) => {
   visibleLife = visibleLife.slice(0, loadedItems);
 
   return (
-    <section className="zone-info-content">
+    <Card className="zone-info-content">
       <div className="zone-info-eyes">
         {showSearch ? (
           <div className="zone-info__search">
@@ -133,12 +140,12 @@ const LifeList: React.FC<LifeListProps> = ({ mediaPath, lifeList }) => {
             <LifeItem
               key={life.life.id}
               backgroundStyle
-              mediaPath={mediaPath}
               life={life}
+              onSelect={lifeSelectHandler}
             />
           ))}
       </div>
-    </section>
+    </Card>
   );
 };
 

@@ -1,4 +1,5 @@
 @import './variables';
+@import './animations';
 
 .jump-camera__info,
 .jump-camera__error {
@@ -28,27 +29,10 @@
   }
   button:hover {
     color: $default-green;
-    animation-name: tilt;
-    animation-duration: 0.25s;
-    animation-timing-function: ease-in-out;
-  }
-}
-
-@keyframes tilt {
-  0% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(-30deg);
-  }
-  50% {
-    transform: rotate(0);
-  }
-  75% {
-    transform: rotate(+30deg);
-  }
-  100% {
-    transform: rotate(0);
+    @extend .tilt-animation;
+    // animation-name: tilt;
+    // animation-duration: 0.25s;
+    // animation-timing-function: ease-in-out;
   }
 }
 

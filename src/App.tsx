@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Home from './pages/Home';
 import Guide from './pages/Guide';
+import { LifePage } from './pages/LifePage';
 
 interface IContext {
   apiUrl: string;
@@ -62,6 +63,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/start" element={<Guide />} />
+          <Route path="/zone/:zoneId" element={<Guide />} />
+          <Route path="/life/:lifeId" element={<LifePage />} />
         </Routes>
       </AppContext.Provider>
     </div>

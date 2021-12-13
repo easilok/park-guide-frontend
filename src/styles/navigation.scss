@@ -1,0 +1,10 @@
+.page__navigation {
+  position: fixed;
+  bottom: 10px;
+  padding: 0 1rem;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

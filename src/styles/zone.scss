@@ -1,25 +1,9 @@
 @import './variables';
+@import './animations';
 
+.life-content,
 .zone-content {
   margin-bottom: 70px;
-}
-
-.zone-header {
-  position: relative;
-  img {
-    width: 100%;
-  }
-  span {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    color: white;
-    font-style: italic;
-    width: 100%;
-    text-align: right;
-    padding: 0 10px;
-    background-color: $image-caption-bg;
-  }
 }
 
 .zone-info-tab {
@@ -45,8 +29,9 @@
   }
 }
 
+.life-info-content,
 .zone-info-content {
-  @apply p-4 border border-solid border-gray-300 rounded-xl shadow-xl m-2;
+  // @apply p-4 border border-solid border-gray-300 rounded-xl shadow-xl m-2;
   h2 {
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -84,6 +69,7 @@
   .action-btn:hover,
   .action-btn:active {
     color: $default-blue;
+    @extend .tilt-animation;
   }
   .zone-info__search {
     flex-grow: 1;
@@ -136,6 +122,10 @@
       background-size: cover;
       position: relative;
       background-color: $image-caption-bg;
+      border: 1px solid transparent;
+      &:hover {
+        border-color: $default-green;
+      }
       > img {
         margin: 0;
         overflow: hidden;
